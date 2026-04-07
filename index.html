@@ -196,9 +196,20 @@
             75%  { top: 100%; left: 0; transform: translate(0, -100%); }
             100% { top: 0; left: 0; transform: translate(0, 0); }
         }
+
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+    <canvas id="bg-canvas"></canvas>
     <div class="border-ball"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -215,5 +226,72 @@
             <a href="#" class="social-link">Twitter</a>
         </div>
     </div>
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let dots = [];
+        let mx = null;
+        let my = null;
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mx = null;
+            my = null;
+        });
+        
+        for (let i = 0; i < 150; i++) {
+            dots.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1
+            });
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+            
+            dots.forEach(dot => {
+                dot.x += dot.vx;
+                dot.y += dot.vy;
+                
+                if (dot.x < 0) dot.x = canvas.width;
+                if (dot.x > canvas.width) dot.x = 0;
+                if (dot.y < 0) dot.y = canvas.height;
+                if (dot.y > canvas.height) dot.y = 0;
+                
+                if (mx !== null && my !== null) {
+                    let dx = mx - dot.x;
+                    let dy = my - dot.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        dot.x += dx * 0.02;
+                        dot.y += dy * 0.02;
+                    }
+                }
+                
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+        
+        resize();
+        animate();
+    </script>
 </body>
 </html>
