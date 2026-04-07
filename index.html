@@ -176,9 +176,30 @@
                 padding: 0.75rem 1.25rem;
             }
         }
+
+        .border-ball {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 8px var(--accent);
+            z-index: 100;
+            pointer-events: none;
+            animation: moveAroundBorder 8s linear infinite;
+        }
+
+        @keyframes moveAroundBorder {
+            0%   { top: 0; left: 0; transform: translate(0, 0); }
+            25%  { top: 0; left: 100%; transform: translate(-100%, 0); }
+            50%  { top: 100%; left: 100%; transform: translate(-100%, -100%); }
+            75%  { top: 100%; left: 0; transform: translate(0, -100%); }
+            100% { top: 0; left: 0; transform: translate(0, 0); }
+        }
     </style>
 </head>
 <body>
+    <div class="border-ball"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
