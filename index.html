@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --text-main: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --bg-color: #111111;
+            --text-main: #ffffff;
+            --text-secondary: #e0e0e0;
+            --accent: #E21833;
+            --accent-hover: #FFD200;
+            --card-bg: rgba(20, 20, 20, 0.7);
         }
 
         * {
@@ -48,7 +49,7 @@
             left: -10%;
             width: 400px;
             height: 400px;
-            background: rgba(59, 130, 246, 0.4);
+            background: rgba(226, 24, 51, 0.4);
             border-radius: 50%;
         }
 
@@ -57,14 +58,19 @@
             right: -10%;
             width: 500px;
             height: 500px;
-            background: rgba(139, 92, 246, 0.3);
+            background: rgba(255, 210, 0, 0.3);
             border-radius: 50%;
             animation-delay: -5s;
         }
 
         @keyframes move {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(50px, 50px) scale(1.1); }
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(50px, 50px) scale(1.1);
+            }
         }
 
         .card {
@@ -95,18 +101,18 @@
             height: 120px;
             border-radius: 50%;
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
             font-weight: 800;
             color: white;
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(226, 24, 51, 0.5);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             user-select: none;
         }
-        
+
         .profile-img:hover {
             transform: scale(1.05) rotate(5deg);
         }
@@ -158,20 +164,23 @@
             background: var(--accent);
             border-color: var(--accent);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.8);
+            box-shadow: 0 10px 20px -10px rgba(226, 24, 51, 0.8);
             color: white;
         }
-        
+
         @media (max-width: 640px) {
             .card {
                 padding: 2.5rem 1.5rem;
             }
+
             h1 {
                 font-size: 2.25rem;
             }
+
             .social-links {
                 gap: 1rem;
             }
+
             .social-link {
                 padding: 0.75rem 1.25rem;
             }
@@ -190,11 +199,35 @@
         }
 
         @keyframes moveAroundBorder {
-            0%   { top: 0; left: 0; transform: translate(0, 0); }
-            25%  { top: 0; left: 100%; transform: translate(-100%, 0); }
-            50%  { top: 100%; left: 100%; transform: translate(-100%, -100%); }
-            75%  { top: 100%; left: 0; transform: translate(0, -100%); }
-            100% { top: 0; left: 0; transform: translate(0, 0); }
+            0% {
+                top: 0;
+                left: 0;
+                transform: translate(0, 0);
+            }
+
+            25% {
+                top: 0;
+                left: 100%;
+                transform: translate(-100%, 0);
+            }
+
+            50% {
+                top: 100%;
+                left: 100%;
+                transform: translate(-100%, -100%);
+            }
+
+            75% {
+                top: 100%;
+                left: 0;
+                transform: translate(0, -100%);
+            }
+
+            100% {
+                top: 0;
+                left: 0;
+                transform: translate(0, 0);
+            }
         }
 
         #bg-canvas {
@@ -208,6 +241,7 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="bg-canvas"></canvas>
     <div class="border-ball"></div>
@@ -217,28 +251,29 @@
     <div class="card">
         <div class="profile-img">AS</div>
         <h1>Arvin Singh</h1>
-        <h2>Software Engineer & Creator</h2>
-        <p>I'm exploring the intersection of technology and design, building intuitive and dynamic experiences on the web.</p>
-        
+        <h2>First Year Data Science Student</h2>
+        <p>I'm exploring the intersection of data science and sports, to help build competitive advantages.</p>
+
         <div class="social-links">
             <a href="https://github.com/asingh7049" class="social-link" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/arvin-singh-43706a344/" class="social-link" target="_blank">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/arvin-singh-43706a344/" class="social-link"
+                target="_blank">LinkedIn</a>
             <a href="#" class="social-link">Twitter</a>
         </div>
     </div>
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        
+
         let dots = [];
         let mx = null;
         let my = null;
-        
+
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        
+
         window.addEventListener('resize', resize);
         window.addEventListener('mousemove', (e) => {
             mx = e.clientX;
@@ -248,7 +283,7 @@
             mx = null;
             my = null;
         });
-        
+
         for (let i = 0; i < 150; i++) {
             dots.push({
                 x: Math.random() * window.innerWidth,
@@ -258,22 +293,22 @@
                 radius: Math.random() * 2 + 1
             });
         }
-        
+
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
-            
+
             dots.forEach(dot => {
                 dot.x += dot.vx;
                 dot.y += dot.vy;
-                
+
                 if (dot.x < 0) dot.x = canvas.width;
                 if (dot.x > canvas.width) dot.x = 0;
                 if (dot.y < 0) dot.y = canvas.height;
                 if (dot.y > canvas.height) dot.y = 0;
-                
+
                 if (mx !== null && my !== null) {
                     let dx = mx - dot.x;
                     let dy = my - dot.y;
@@ -283,15 +318,16 @@
                         dot.y += dy * 0.02;
                     }
                 }
-                
+
                 ctx.beginPath();
                 ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
                 ctx.fill();
             });
         }
-        
+
         resize();
         animate();
     </script>
 </body>
+
 </html>
